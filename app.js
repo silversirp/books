@@ -49,24 +49,6 @@ function addBook (event) {
         console.log(td1,td2,td3,td4);
 
 
-    //create <tr> element
-    /*const tr = document.createElement('tr');
-    tr.className = 'collection-item';
-    const th = document.createElement('th');
-
-    //create text element
-    const title = document.createTextNode(titleInput);
-    const author = document.createTextNode(authorInput);
-    const ISBN = document.createTextNode(ISBNInput);
-    console.log(title, author, ISBN);
-    //add text to <li>
-    th.appendChild(title);
-    const th = document.createElement('th');
-    th.appendChild(author);
-    const th = document.createElement('th');
-    th.appendChild(ISBN);
-    */
-
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -81,5 +63,11 @@ function addBook (event) {
 }
 
 function deleteBook (event) {
+    if (event.target.textContent === 'X') {
+        if (confirm('Do you really want to delete the book?')) {
+            console.log(event.target.parentNode);
+            event.target.parentElement.parentElement.remove();
+        }
+    }
 
 }
