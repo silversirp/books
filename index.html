@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Books</title>
+</head>
+<body>
+<div class="container">
+    <!-- Page Content goes here -->
+    <h2>Add Book</h2>
+    <form>
+        <div>
+            <label for="title">Title</label>
+            <input id="title" type="text">
+            <label for="author">Author</label>
+            <input id="author" type="text">
+            <label for="ISBN">ISBN#</label>
+            <input id="ISBN" type="text">
+        </div>
+        <input type="submit" value="SUBMIT" class="btn">
+    </form>
+    <div>
+        <div class="tg-wrap"><table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Tõde ja õigus</td>
+                <td>A.H.Tammsaare</td>
+                <td>13579</td>
+                <td>X</td>
+            </tr>
+            <tr>
+                <td>Naksitrallid</td>
+                <td>Eno Raud</td>
+                <td>13578</td>
+                <td>X</td>
+            </tr>
+            </tbody>
+        </table></div>
+        <!--<a href="#" class="btn" id="delete-tasks">Delete All Tasks</a>-->
+    </div>
+</div>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
