@@ -16,7 +16,7 @@ function addBook (event) {
     const authorInput = document.querySelector('#author').value;
     const ISBNInput = document.querySelector('#ISBN').value;
     //let task = taskInput.value;
-    console.log(titleInput, authorInput, ISBNInput);
+    //console.log(titleInput, authorInput, ISBNInput);
 
     const tr = document.createElement('tr');
     tr.className = 'collection-item';
@@ -38,7 +38,7 @@ function addBook (event) {
         // add text content to <a>
         link.appendChild(document.createTextNode('X'));
 
-        console.log(title,author,ISBN,link);
+        //console.log(title,author,ISBN,link);
 
         //add text to <li>
         td1.appendChild(title);
@@ -46,7 +46,7 @@ function addBook (event) {
         td3.appendChild(ISBN);
         td4.appendChild(link);
 
-        console.log(td1,td2,td3,td4);
+        //console.log(td1,td2,td3,td4);
 
 
     tr.appendChild(td1);
@@ -55,17 +55,48 @@ function addBook (event) {
     tr.appendChild(td4);
     const table = document.querySelector('table');
     table.appendChild(tr);
-    console.log(tr);
+    //console.log(tr);
 
-    titleInput.value = '';
+    //create book
+    const book = [titleInput, authorInput, ISBNInput];
+    console.log(book);
+
+    // save to localStorage
+    //tr tablerow on kogu raamatu info tr tagina
+    //saveBook(tr);
+    addBookToLocalStorage(book);
+
+    document.querySelector('#title').value = '';
+    document.querySelector('#author').value = '';
+    document.querySelector('#ISBN').value = '';
     event.preventDefault();
 
+}
+/*
+function saveBook(tr) {
+    let books = [];
+    books.push(tr);
+    //console.log(books);
+}
+*/
+
+function addBookToLocalStorage(book) {
+    console.log(book);
+    let books;
+    if (localStorage.getItem('books') === null) {
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+    books.push(book);
+    console.log(books);
+    localStorage.setItem('books', JSON.stringify(books));
 }
 
 function deleteBook (event) {
     if (event.target.textContent === 'X') {
         if (confirm('Do you really want to delete the book?')) {
-            console.log(event.target.parentNode);
+            //console.log(event.target.parentNode);
             event.target.parentElement.parentElement.remove();
         }
     }
