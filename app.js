@@ -58,8 +58,8 @@ function addBook (event) {
     //console.log(tr);
 
     //create book
-    const book = [titleInput, authorInput, ISBNInput];
-    console.log(book);
+    let book = [titleInput, authorInput, ISBNInput];
+    // console.log(book);
 
     // save to localStorage
     //tr tablerow on kogu raamatu info tr tagina
@@ -81,7 +81,7 @@ function saveBook(tr) {
 */
 
 function addBookToLocalStorage(book) {
-    console.log(book);
+    // console.log(book);
     let books;
     if (localStorage.getItem('books') === null) {
         books = [];
@@ -89,16 +89,39 @@ function addBookToLocalStorage(book) {
         books = JSON.parse(localStorage.getItem('books'));
     }
     books.push(book);
-    console.log(books);
+    // console.log(books);
     localStorage.setItem('books', JSON.stringify(books));
 }
 
 function deleteBook (event) {
     if (event.target.textContent === 'X') {
         if (confirm('Do you really want to delete the book?')) {
-            //console.log(event.target.parentNode);
+            // parentNode and parentElement give same results
+            // console.log('parentNode: ', event.target.parentNode.parentNode);
+            // console.log('parentElement: ', event.target.parentElement.parentElement);
             event.target.parentElement.parentElement.remove();
+            // get book title from target to deleteFromLocalStorage by book title
+            bookTitle = event.target.parentElement.parentElement.firstChild.textContent;
+            console.log(bookTitle);
+            deleteBookFromLocalStorage(bookTitle);
         }
     }
+}
 
+function deleteBookFromLocalStorage(bookTitle) {
+    let books;
+    if (localStorage.getItem('books') === null) {
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'));
+        // console.log(bookTitle);
+        books.forEach(function (booksElement, index) {
+            // localStorage stores book as array so I need to get title from booksElement, title is first element, so index [0]
+            // and match it with bookTitle from event
+            if(booksElement[0] === bookTitle) {
+                books.splice(index, 1);
+            }
+        });
+    }
+    localStorage.setItem('books', JSON.stringify(books));
 }
