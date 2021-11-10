@@ -9,16 +9,19 @@ const ISBN = document.querySelector('#ISBN');
 // events
 form.addEventListener('submit', addBook);
 bookList.addEventListener('click', deleteBook);
+document.addEventListener('DOMContentLoaded', getBooksFromLocalStorage);
 
 function addBook (event) {
     //get form input data
     const titleInput = document.querySelector('#title').value;
     const authorInput = document.querySelector('#author').value;
-    const ISBNInput = document.querySelector('#ISBN').value;
+    const isbnInput = document.querySelector('#ISBN').value;
     //let task = taskInput.value;
     //console.log(titleInput, authorInput, ISBNInput);
 
-    const tr = document.createElement('tr');
+    // old robust table constructor
+    /*
+    let tr = document.createElement('tr');
     tr.className = 'collection-item';
 
         const td1 = document.createElement('td');
@@ -32,7 +35,7 @@ function addBook (event) {
         //create text element
         const title = document.createTextNode(titleInput);
         const author = document.createTextNode(authorInput);
-        const ISBN = document.createTextNode(ISBNInput);
+        const isbn = document.createTextNode(isbnInput);
         // set href attribute
         link.setAttribute('href', '#');
         // add text content to <a>
@@ -43,7 +46,7 @@ function addBook (event) {
         //add text to <li>
         td1.appendChild(title);
         td2.appendChild(author);
-        td3.appendChild(ISBN);
+        td3.appendChild(isbn);
         td4.appendChild(link);
 
         //console.log(td1,td2,td3,td4);
@@ -57,8 +60,40 @@ function addBook (event) {
     table.appendChild(tr);
     //console.log(tr);
 
+     */
+
     //create book
-    let book = [titleInput, authorInput, ISBNInput];
+    let book = [titleInput, authorInput, isbnInput];
+
+    // try to populate the table with more elegant way
+    // get book info for table from book array
+    let trUus = document.createElement('tr');
+    trUus.className = 'collection-item';
+    for(let i=0; i<book.length;i++) {
+        let td = document.createElement('td');
+        let text = document.createTextNode(book[i]);
+        td.appendChild(text);
+        trUus.appendChild(td);
+        // trUus.appendChild(td);
+            // console.log(trUus.appendChild(td.appendChild(document.createTextNode(book[i]))));
+
+
+    }
+    td = document.createElement('td');
+    let link1 = document.createElement('a');
+    // add css class to link
+    link1.className = 'secondary-content';
+    // set href attribute
+    link1.setAttribute('href', '#');
+    // add text content to <a>
+    link1.appendChild(document.createTextNode('X'));
+    td.appendChild(link1);
+    trUus.appendChild(td);
+    let tableUus = document.querySelector('table');
+    tableUus.appendChild(trUus);
+
+    // end elegant way
+
     // console.log(book);
 
     // save to localStorage
@@ -124,4 +159,40 @@ function deleteBookFromLocalStorage(bookTitle) {
         });
     }
     localStorage.setItem('books', JSON.stringify(books));
+}
+
+function getBooksFromLocalStorage() {
+    let books;
+    if (localStorage.getItem('books') === null) {
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'));
+        // console.log(bookTitle);
+        books.forEach(function (booksElement, index) {
+            let book = books[index];
+            const tr = document.createElement('tr');
+            for (let i=0; i<book.length;i++) {
+                let td = document.createElement('td');
+                let text = document.createTextNode(book[i]);
+                td.appendChild(text);
+                tr.appendChild(td);
+                // tr.appendChild(td);
+                // console.log(tr.appendChild(td.appendChild(document.createTextNode(book[i]))));
+
+
+            }
+            td = document.createElement('td');
+            let link = document.createElement('a');
+            // add css class to link
+            link.className = 'secondary-content';
+            // set href attribute
+            link.setAttribute('href', '#');
+            // add text content to <a>
+            link.appendChild(document.createTextNode('X'));
+            td.appendChild(link);
+            tr.appendChild(td);
+            let table = document.querySelector('table');
+            table.appendChild(tr);
+        });
+    }
 }
